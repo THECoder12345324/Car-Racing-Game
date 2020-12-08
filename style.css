@@ -3,10 +3,23 @@ html, body {
     padding: 0;
   }
   canvas{
-    margin-left: 25%;
-    margin-right: 25%;
-    margin-top: 100px;
+    display: block;
+    margin: auto;
     border: 2px solid black;
+  }
+  h1 {
+    margin: auto;
+    text-align: center;
+  }
+  input {
+    position: absolute;
+    left: 45%;
+    top: 20%;
+  }
+  button {
+    position: absolute;
+    left: 48%;
+    top: 25%;
   }
   
   
