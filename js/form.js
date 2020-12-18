@@ -2,6 +2,7 @@ class Form {
     constructor(){
         this.input = createInput("name");
         this.button = createButton("PLAY");
+        this.reset = createButton("Reset");
         this.greeting = createElement('h2');
         this.click=false;
     }
@@ -21,6 +22,11 @@ class Form {
                 this.greeting.html("Hello, "+player.name+" please wait for the game to start");
                 this.greeting.position(displayWidth / 2, displayHeight / 2);
             });
+            this.reset.position(displayWidth - 100,displayHeight - 100)
+            this.reset.mousePressed(() => {
+                player.updateCount(0);
+                game.updateState(0);
+            })
         }
     }
     hide() {
