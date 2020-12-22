@@ -23,9 +23,11 @@ class Player{
         });
     }
     static getPlayerInfo() {
+        console.log("Called");
         var playerinforef = database.ref('Players');
         playerinforef.on('value', (data) => {
             allplayers = data.val();
+            console.log(allplayers);
         })
     }
 }

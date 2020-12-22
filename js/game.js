@@ -55,12 +55,17 @@ class Game {
                 cars[index - 1].x = x;
                 cars[index-1].y = y;
                 if (index === player.index) {
-                    cars[index-1].shapeColor = "red";
+                    fill("red");
+                    ellipseMode(RADIUS)
+                    ellipse(x, y, 60, 60);
+                    textSize(20);
+                    fill("white");
+                    text("You", x - 25, y - 80);
                     camera.position.x = displayWidth / 2;
                     camera.position.y = cars[index-1].y;
                 }
                 else {
-                    cars[index-1].shapeColor = "black";
+                    //cars[index-1].shapeColor = "black";
                 }
             }
         }
@@ -100,6 +105,5 @@ class Game {
                 text("" + player.name + "'s place: " + place, width / 2 - 100, displaypos - (height * 5));
             }
         }
-        
     }
 }
