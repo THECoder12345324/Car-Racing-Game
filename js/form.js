@@ -42,6 +42,7 @@ class Form {
             this.reset.mousePressed(() => {
                 player.updateCount(0);
                 game.updateState(0);
+                Player.updateRank(0);
             })
         }
     }

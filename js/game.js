@@ -1,4 +1,6 @@
 var placecheck = 0;
+var rankref;
+var textpos;
 
 class Game {
     constructor(){
@@ -41,6 +43,7 @@ class Game {
         //textSize(20);
         //text("Game started", width / 2 - 200, height / 2);
         Player.getPlayerInfo();
+        player.getRank();
         if (allplayers !== undefined) {
             background(102, 102, 102);
             image(trackimg, 30, 0 - (height * 3.25), width, height * 5);
@@ -71,12 +74,15 @@ class Game {
         }
         if (player.distance > 3800) {
             gamestate = 2;
-            placecheck += 1;
-            game.updateState(gamestate);
+            /*placecheck += 1;*/
+            player.place += 1;
+            Player.updateRank(player.place);
+            console.log(player.place);
+            //game.updateState(gamestate);
         }
-        if (placecheck == 1) {
+        /*if (placecheck == 1) {
             place += 1
-        }
+        }*/
         if (keyIsDown(UP_ARROW) && player.index !== null && gamestate === 1) {
             player.distance += 10;
             player.update();
@@ -86,23 +92,42 @@ class Game {
 
     }
     end() {
+        background(255, 255, 255);
         console.log("Game Ended");
         textSize(20);
         fill("black");
         text("The game ended!!!", width / 2 - 200, height / 2 - (height * 5));
-        var displaypos = height / 2 + 200;
+        var displaypos = height / 2 + 100;
+        textpos = height / 2 - (height * 5);
         if (allplayers !== undefined) {
             var index = 0;
             for (var plr in allplayers) {
                 index += 1;
-                displaypos += 200
+                displaypos += 50
                 if (index === player.index) {
                     fill("red");
+                    rankref = database.ref("Rank").on("value", function(data) {
+                        allplayers[plr].place = data.val();
+                        player.saveplace = data.val();
+                    })
                 }
                 else {
                     fill("black");
                 }
-                text("" + player.name + "'s place: " + place, width / 2 - 100, displaypos - (height * 5));
+                console.log("Ran");
+                fill("black");
+                textSize(20);
+                text("YOU FINISHED THE GAME", width / 2, textpos);
+                camera.position.x = width / 2;
+                camera.position.y = textpos;
+                if (index == player.index) {
+                    text("" + player.name + "'s place: " + player.place, width / 2 - 100, displaypos - (height * 5));
+                }
+                else {
+                    text("" + allplayers[plr].name + "'s place: " + allplayers[plr].place, width / 2 - 100, displaypos - (height * 5));
+                }
+                    console.log(allplayers[plr].place);
+                console.log(allplayers[plr].name);
             }
         }
     }
